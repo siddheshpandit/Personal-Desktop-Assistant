@@ -6,12 +6,12 @@ import wikipedia
 import webbrowser
 import os
 import smtplib
-
+import pywhatkit
 # sapi is microsoft api used for speech recognition and speech synthesis in windows applications
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 # print(voices[1].id)
-engine.setProperty('voice', voices[0].id)
+engine.setProperty('voice', voices[1].id)
 
 
 
@@ -28,7 +28,7 @@ def wishme():
         speak("Good Afternoon")
     else:
         speak("Good Evening")
-    speak("I am cauwa, How May I help You")
+    speak("I am Sid, How May I help You")
 
 def takeCommand():
     r = sr.Recognizer()
@@ -58,23 +58,15 @@ if __name__ == "__main__":
     wishme()
     while True:
         query=takeCommand().lower()
-
-        if 'wikipedia' in query:
-            speak("searching wikipedia..")
-            query=query.replace('wikipedia','')
-            results=wikipedia.summary(query,sentences=2)
-            speak("According to Wikipedia")
-            print(results)
-            speak(results)
-        elif 'youtube' in query:
-            webbrowser.open('www.youtube.com')
-
-        elif 'github' in query:
-            webbrowser.open('www.github.com')   
-
-        elif 'stack overflow' in query:
-            webbrowser.open('www.stackoverflow.com')
-
+        if 'play' in query:
+            song=query.replace('play','')
+            pywhatkit.playonyt(song)
+        elif 'on whatsapp' in query:
+            msg=query.replace('on whatsapp','')
+            pywhatkit.sendwhatmsg("+918446081590",'Sent on 8.15',20,24)    
+        elif 'search' in query:
+            search=query.replace('search','')
+            pywhatkit.search(search)    
         elif 'time' in query:
             strTime=datetime.datetime.now().strftime("%H:%M:%S")
             print(strTime)
